@@ -20,10 +20,13 @@ limpiarUsuariosGrupos(){
     userdel nathy
     userdel david
 
+    userdel ada
+
     groupdel backend-dev
     groupdel web-dev
     groupdel ios-dev
     groupdel data-scientist
+    groupdel ml-engineer
     echo "  Usuarios y grupos limpiados"
 }
 
@@ -78,6 +81,8 @@ crearUsuariosGrupos() {
     crearGrupo "web-dev"
     crearGrupo "ios-dev"
     crearGrupo "data-scientist"
+    crearGrupo "ml-engineer"
+    
 
     crearUsuario "juan" "backend-dev" "12345"
     crearUsuario "pedro" "backend-dev" "12345"
@@ -91,6 +96,8 @@ crearUsuariosGrupos() {
 
     crearUsuario "david" "data-scientist" "12345"
     crearUsuario "nathy" "data-scientist" "12345"
+
+    crearUsuario "ada" "ml-engineer" "12345"
 }
 
 asignarGruposPropietarios(){
@@ -98,7 +105,8 @@ asignarGruposPropietarios(){
     chown -R juan:backend-dev proyectos/servicios
     chown -R claire:web-dev proyectos/front/webapp
     chown -R jimmy:ios-dev proyectos/front/ios
-    chown -R david:data-scientist proyectos/data
+    chown -R david:data-scientist proyectos/data/modelo_sugerencias
+    chown -R ada:ml-engineer proyectos/data/ml_ops
 } 
 
 asignarPermisos(){
@@ -111,8 +119,11 @@ asignarPermisos(){
     chmod -R ug=rwx proyectos/front/ios
     chmod -R o=rx proyectos/front/ios
 
-    chmod -R ug=rwx proyectos/data
-    chmod -R o=r proyectos/data
+    chmod -R ug=rwx proyectos/data/modelo_sugerencias
+    chmod -R o=r proyectos/data/modelo_sugerencias
+
+    chmod -R ug=rwx proyectos/data/ml_ops
+    chmod -R o=r proyectos/data/ml_ops
 }
 
 echo "Iniciando proyecto ..."
@@ -121,7 +132,7 @@ limpiarUsuariosGrupos
 
 crearDirectorios "servicios" "autenticacion ventas inventario perfil_usuario"
 crearDirectorios "front" "webapp ios"
-crearDirectorios "data" "modelo_sugerencias"
+crearDirectorios "data" "modelo_sugerencias ml_ops"
 echo "Iniciando creación de usuarios y grupos ..."
 crearUsuariosGrupos
 asignarGruposPropietarios
